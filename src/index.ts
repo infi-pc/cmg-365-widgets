@@ -18,6 +18,10 @@ export function evaluateLogFile(logContentsStr: string): SensorResults {
 
   for (const [sensorName, sensor] of Object.entries(sensorsByName)) {
     const mean = calculateMean(sensor.readings)
+    if (isNaN(mean)) {
+      results[sensorName] = 'discard'
+      continue
+    }
     const standardDeviation = calculateStandardDeviation(sensor.readings, mean)
 
     switch (sensor.type) {
