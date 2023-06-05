@@ -7,6 +7,15 @@ The CMG 365 Widgets library is a quality control tool used to analyze log files 
 ## Stack
 
 - library is based on https://github.com/xg4/rollup-typescript-boilerplate
+- already included in library
+  - typescript
+  - pnpm
+  - rollup
+  - prettier
+  - commitlint (conventional commits)
+  - husky (pre-commit hooks)
+- added
+  - jest (unit testing)
 
 ## LICENSE
 
