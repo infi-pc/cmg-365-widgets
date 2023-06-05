@@ -1,4 +1,4 @@
-import evaluateLogFile from './index'
+import { evaluateLogFile } from './index'
 
 describe('evaluateLogFile', () => {
   it('evaluates a log file correctly', () => {

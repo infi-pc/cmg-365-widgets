@@ -9,6 +9,7 @@ export type SensorInfo = {
 export type SensorByName = { [name: string]: SensorInfo }
 
 const sensorTypes = ['thermometer', 'humidity', 'monoxide'] as const
+
 export type SensorType = typeof sensorTypes[number]
 
 export function getNewSensor(name: string, type: SensorType): SensorInfo {
@@ -38,7 +39,6 @@ export function parseSensors(input: string): {
   for (const line of lines) {
     const lineItems = line.trim().split(' ')
 
-    console.log('first lineItems', lineItems)
     if (sensorTypes.includes(lineItems[0] as SensorType)) {
       currentSensor = getNewSensor(lineItems[1], lineItems[0] as SensorType)
       sensorsByName[currentSensor.name] = currentSensor

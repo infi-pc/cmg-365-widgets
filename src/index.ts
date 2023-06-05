@@ -1,23 +1,12 @@
-import { SensorReadings, parseSensors } from './parseSensors'
+import { calculateMean } from './calculateMean'
+import { calculateStandardDeviation } from './calculateStandardDeviation'
+import { parseSensors } from './parseSensors'
 
 interface SensorResults {
   [sensorName: string]: string
 }
 
-function calculateMean(array: SensorReadings): number {
-  if (array.length === 0) {
-    throw new Error('Cannot calculate mean of empty array')
-  }
-  return array.reduce((a, b) => a + b) / array.length
-}
-
-function calculateStandardDeviation(readings: number[], mean: number) {
-  const variance =
-    readings.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / readings.length
-  return Math.sqrt(variance)
-}
-
-export default function evaluateLogFile(logContentsStr: string): SensorResults {
+export function evaluateLogFile(logContentsStr: string): SensorResults {
   const {
     sensors: sensorsByName,
     refTemperature,
@@ -27,9 +16,9 @@ export default function evaluateLogFile(logContentsStr: string): SensorResults {
 
   const results: SensorResults = {}
 
-  for (let [sensorName, sensor] of Object.entries(sensorsByName)) {
-    let mean = calculateMean(sensor.readings)
-    let standardDeviation = calculateStandardDeviation(sensor.readings, mean)
+  for (const [sensorName, sensor] of Object.entries(sensorsByName)) {
+    const mean = calculateMean(sensor.readings)
+    const standardDeviation = calculateStandardDeviation(sensor.readings, mean)
 
     switch (sensor.type) {
       case 'thermometer':
