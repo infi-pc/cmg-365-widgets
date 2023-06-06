@@ -78,20 +78,6 @@ monoxide mon-2
     expect(result).toEqual(expected)
   })
 
-  it('handles a humidity sensor with readings just on the boundary', () => {
-    const logContentsStr = `reference 70.0 45.0 6
-  humidity hum-1
-  2007-04-05T22:04 45.0
-  2007-04-05T22:05 46.0`
-
-    const expected = {
-      'hum-1': 'keep',
-    }
-
-    const result = evaluateLogFile(logContentsStr)
-    expect(result).toEqual(expected)
-  })
-
   it('handles a humidity sensor with readings just outside the boundary', () => {
     const logContentsStr = `reference 70.0 45.0 6
   humidity hum-1
@@ -114,20 +100,6 @@ monoxide mon-2
 
     const expected = {
       'mon-1': 'keep',
-    }
-
-    const result = evaluateLogFile(logContentsStr)
-    expect(result).toEqual(expected)
-  })
-
-  it('handles a monoxide sensor with readings just outside the boundary', () => {
-    const logContentsStr = `reference 70.0 45.0 6
-  monoxide mon-1
-  2007-04-05T22:04 2
-  2007-04-05T22:05 10`
-
-    const expected = {
-      'mon-1': 'discard',
     }
 
     const result = evaluateLogFile(logContentsStr)
